@@ -28,6 +28,7 @@ namespace ORB_SLAM3
 
 MapDrawer::MapDrawer(Atlas* pAtlas, const string &strSettingPath, Settings* settings):mpAtlas(pAtlas)
 {
+    f = fopen("map_xyz.txt", "wb");
     if(settings){
         newParameterLoader(settings);
     }
@@ -169,6 +170,7 @@ void MapDrawer::DrawMapPoints()
             continue;
         Eigen::Matrix<float,3,1> pos = (*sit)->GetWorldPos();
         glVertex3f(pos(0),pos(1),pos(2));
+	fprintf(f, "%f,%f,%f,%f,%f,%f\n", pos(0), pos(1), pos(2), 1,0,0 );
 
     }
 
